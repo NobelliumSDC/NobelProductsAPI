@@ -1,5 +1,27 @@
 {
   "dependencies": {
-    "mongoose": "^6.5.0"
-  }
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "mongoose": "^6.5.0",
+    "pg": "^8.7.3"
+  },
+  "name": "nobelproductsapi",
+  "version": "1.0.0",
+  "description": "'coolest api'",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "test",
+    "server": "node server/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NobelliumSDC/NobelProductsAPI.git"
+  },
+  "author": "Me",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NobelliumSDC/NobelProductsAPI/issues"
+  },
+  "homepage": "https://github.com/NobelliumSDC/NobelProductsAPI#readme"
 }

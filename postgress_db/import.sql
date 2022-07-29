@@ -22,3 +22,5 @@ COPY skus(id, style_id, size, quantity)
 FROM '/Users/manuelrosadilla/Desktop/SDC/sdcdata/product.csv'
 DELIMITER ','
 CSV HEADER;
+
+

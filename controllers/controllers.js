@@ -7,16 +7,38 @@ module.exports.getProducts = (page, count) => {
 }
 //route for getting single product
 module.exports.getOne = (id) => {
-  return Pgdb.getOne(id).then(responses => {
-    let product = responses[1].rows[0]
-    let features = responses[0].rows
-    product.features = features
-    return product
-  })
+  return Pgdb.getOne(id)
 }
 //route for getting product styles
-module.exports.getSyles = (id) => {
-  return Pgdb.getStyles(id)
-}
+module.exports.styles = (id) => {
+  id = parseInt(id)
+  return Pgdb.styles(id).then( x => {
+    let stylesArray = x.rows.map(style => {
+      console.log(style)
+      style = style.json_build_object
+     style.skus = {}
+     style?.skusarr?.forEach(element => {
+      console.log(element)
+      style.skus[element.id] = {
+        size: element.size,
+        quantity: element.quantity
+      }
+     });
+     delete style.skusarr
+     return style
 
+    })
+    const object = {
+      product_id: id,
+      results : stylesArray
+    }
+    return object
+
+  })
+}
 //route for getting related
+
+module.exports.related = (id) => {
+
+  return Pgdb.related(id)
+}

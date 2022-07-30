@@ -1,3 +1,5 @@
+require('newrelic');
+
 const express = require('express')
 const controllers = require('../controllers/controllers.js')
 const app = express()
@@ -8,7 +10,6 @@ const port = process.env.PORT
 
 app.get('/products', (req, res) => {
   const {page, count} = req.query
-  console.log(req.query)
   controllers.getProducts(page, count).then(x => res.send(x.rows))
 })
 
@@ -26,7 +27,8 @@ app.get('/products/:product_id/related', (req, res) => {
 })
 
 app.get('/test', (req, res) => {
-  controllers.test().then(x => res.send(x))
+  controllers.test().then( x => {
+    res.send(x.rows)})
 })
 app.listen(port, () => {
   console.log(` listening on port ${port}`)

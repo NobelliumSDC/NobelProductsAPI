@@ -14,11 +14,8 @@ module.exports.styles = (id) => {
   id = parseInt(id)
   return Pgdb.styles(id).then( x => {
     let stylesArray = x.rows.map(style => {
-      console.log(style)
-      style = style.json_build_object
      style.skus = {}
      style?.skusarr?.forEach(element => {
-      console.log(element)
       style.skus[element.id] = {
         size: element.size,
         quantity: element.quantity
@@ -41,4 +38,9 @@ module.exports.styles = (id) => {
 module.exports.related = (id) => {
 
   return Pgdb.related(id)
+}
+
+
+module.exports.test =() => {
+  return Pgdb.test()
 }

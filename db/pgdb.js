@@ -19,7 +19,6 @@ module.exports.get = (page =1, count = 5) =>{
   return pool.query(query)
 }
 module.exports.getOne = (id) => {
-  console.log(id)
   let query = {
     text: `select
           json_build_object(
@@ -50,35 +49,35 @@ module.exports.getOne = (id) => {
 
 module.exports.styles = (id) => {
   let query = {
-    text: `SELECT json_build_object(
-      'style_id', styles.id,
-'name',styles.name,
-'origina_price', styles.original_price,
-'sale_price',styles.sale_price,
-'default?', styles.default_style,
-'photos', (
-SELECT json_agg(photos)
-  FROM (
-  SELECT
-    photos.thumbnail_url,
-    photos.photo_url as "url"
-  FROM photos
-  WHERE photos.style_id = styles.id
-  ) AS "photos"
+    text: `SELECT
+    styles.id as "style_id",
+styles.name,
+styles.original_price,
+styles.sale_price::json,
+styles.default_style as "default?",
+(
+SELECT json_agg(photos) as "photos"
+FROM (
+SELECT
+ photos.thumbnail_url,
+ photos.photo_url as "url"
+FROM photos
+WHERE photos.style_id = styles.id
+) AS "photos"
 ),
-  'skusarr', (
-SELECT json_agg(skus)
-  FROM (
-  SELECT
-    skus.id,
-    skus.size,
-    skus.quantity
-  FROM skus
-  WHERE skus.style_id = styles.id
-  ) AS "skus"
+(
+SELECT json_agg(skus) as "skusarr"
+FROM (
+SELECT
+ skus.id,
+ skus.size,
+ skus.quantity
+FROM skus
+WHERE skus.style_id = styles.id
+) AS "skus"
 )
-      )
-    FROM styles
+
+ FROM styles
     WHERE styles.product_id = $1`,
       values: [id]
   }
@@ -93,4 +92,43 @@ module.exports.related = (id) => {
   }
 
   return pool.query(query)
+}
+
+
+module.exports.test = () => {
+  let query = {
+    text: `SELECT
+    styles.id as "style_id",
+styles.name,
+styles.original_price,
+styles.sale_price,
+styles.default_style as "default?",
+(
+SELECT json_agg(photos) as "photos"
+FROM (
+SELECT
+ photos.thumbnail_url,
+ photos.photo_url as "url"
+FROM photos
+WHERE photos.style_id = styles.id
+) AS "photos"
+),
+(
+SELECT json_agg(skus) as "skus"
+FROM (
+SELECT
+ skus.id,
+ skus.size,
+ skus.quantity
+FROM skus
+WHERE skus.style_id = styles.id
+) AS "skus"
+)
+
+ FROM styles
+ WHERE styles.product_id = 1`
+  }
+
+  return pool.query(query)
+
 }

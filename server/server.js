@@ -33,7 +33,7 @@ app.get('/test', (req, res) => {
     res.send(x.rows)}).catch(err => res.send('500 internal'))
 })
 
-app.get('/loaderio-c61f3ba02d7faf45052fd539260f3ed4', (req, res) => { res.sendFile('../loaderio.txt')})
+app.get('/loaderio-c61f3ba02d7faf45052fd539260f3ed4', (req, res) => { res.sendFile('loaderio.txt')})
 app.listen(port, () => {
   console.log(` listening on port ${port}`)
 })

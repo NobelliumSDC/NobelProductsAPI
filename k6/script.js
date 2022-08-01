@@ -1,10 +1,10 @@
 import http from 'k6/http';
 import { check , sleep } from 'k6';
 export const options = {
-  vus: 10,
+  vus: 100,
   duration: '10s',
 };
-let url = `http://127.0.0.1:5001/products/${~~(Math.random() * 1900000)}/styles`
+let url = `http://18.212.241.214:5001/products/${~~(Math.random() * 1900000)}/styles`
 export default function () {
 
   let res = http.get(url);

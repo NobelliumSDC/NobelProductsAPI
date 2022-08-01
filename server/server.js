@@ -1,11 +1,11 @@
 
-
+const cors = require('cors')
 const express = require('express')
 const controllers = require('../controllers/controllers.js')
 const app = express()
 require("dotenv").config();
 const port = process.env.PORT
-
+app.use(cors({origin:'*'}))
 
 
 app.get('/products', (req, res) => {

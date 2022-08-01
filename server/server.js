@@ -1,4 +1,4 @@
-require('newrelic');
+
 
 const express = require('express')
 const controllers = require('../controllers/controllers.js')
@@ -20,7 +20,9 @@ app.get('/products/:product_id', (req, res) => {
 })
 
 app.get('/products/:product_id/styles', (req, res) => {
-  controllers.styles(req.params.product_id).then(x => res.send(x))
+  controllers.styles(req.params.product_id).then(x => {
+    res.send(x)
+  })
 })
 app.get('/products/:product_id/related', (req, res) => {
   controllers.related(req.params.product_id).then(x => res.send(x.rows.map(res => res["related_id"])))

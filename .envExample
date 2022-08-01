@@ -1,0 +1,7 @@
+
+HOST = "server host here"
+PORT=server port here
+DB_PORT = database port here
+DB_HOST = "host here"
+DB_USER = "user here"
+DB_NAME = "db name here"

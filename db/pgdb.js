@@ -1,15 +1,19 @@
+require("dotenv").config()
+const {DB_PORT, DB_NAME, DB_HOST, DB_USER, DB_PASS} = process.env
+
+
 const {Pool, CLient} = require('pg')
+
 const pool = new Pool({
-  user: 'manuelrosadilla',
-  host: 'localhost',
-  database: 'nobelsdc',
-  password:'',
-  port: 5432
+  user: DB_USER,
+  host: DB_HOST,
+  database: DB_NAME,
+  password:DB_PASS,
+  port:DB_PORT
 })
-// `Select feature, value  from products join features on products.id = features.product_id where products.id = 1;`
+
 
 module.exports.get = (page =1, count = 5) =>{
-  //math is being weird fix later
   let offset = (page * count - count)
   let limit = count
   let query = {

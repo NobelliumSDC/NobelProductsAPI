@@ -1,7 +1,7 @@
 import http from 'k6/http';
 import { check , sleep } from 'k6';
 export const options = {
-  vus: 100,
+  vus: 10,
   duration: '10s',
 };
 let url = `http://127.0.0.1:5001/products/${~~(Math.random() * 1900000)}/styles`

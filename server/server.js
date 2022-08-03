@@ -22,7 +22,9 @@ app.get('/products/:product_id', (req, res) => {
 app.get('/products/:product_id/styles', (req, res) => {
   controllers.styles(req.params.product_id).then(x => {
     res.send(x)
-  }).catch(err => res.send(err))
+  }).catch(err => {
+    console.log(err)
+    res.send(err)})
 })
 app.get('/products/:product_id/related', (req, res) => {
   controllers.related(req.params.product_id).then(x => res.send(x.rows.map(res => res["related_id"]))).catch(err => res.send('500 internal'))
